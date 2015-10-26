@@ -10,7 +10,7 @@ private:
 	void update(const sf::Time& elapsedTime);
 	void draw();
 public:
-	App(size_t width, size_t height);
+	App(int width, int height);
 	
 	void run();
 	void exit();

@@ -1,8 +1,8 @@
 #include "App.h"
 
 
-App::App(size_t width, size_t height) : window(sf::VideoMode(width, height), "SFML"),
-										running(false) {
+App::App(int width, int height) : window(sf::VideoMode(width, height), "SFML"),
+								  running(false) {
 }
 
 void App::update(const sf::Time& elapsedTime) {
