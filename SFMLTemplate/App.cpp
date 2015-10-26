@@ -1,13 +1,17 @@
 #include "App.h"
 
-
 App::App(int width, int height) : window(sf::VideoMode(width, height), "SFML"),
 								  running(false) {
+	// dirty hax
+	sf::Texture* texture = new sf::Texture;
+	texture->loadFromFile("Content\\kuha.jpg");
+	
+	player = new Player(texture);
 }
 
 void App::update(const sf::Time& elapsedTime) {
 	sf::Event e;
-
+	
 	while (window.pollEvent(e)) {
 		if (e.type == sf::Event::Closed) {
 			exit();
@@ -21,19 +25,15 @@ void App::update(const sf::Time& elapsedTime) {
 		}
 	}
 
+	player->update(elapsedTime);
+
 	// TODO: päivitä tässä.
 }
+
 void App::draw() {
 	window.clear();
 
-	// TODO: piirrä tässä.
-	sf::Texture texture;
-	texture.loadFromFile("Content\\kuha.jpg");
-
-	sf::Sprite sprite(texture);
-	sprite.setScale(sf::Vector2f(window.getView().getSize().x / texture.getSize().x,
-								 window.getView().getSize().y / texture.getSize().y));
-	window.draw(sprite);
+	player->draw(window);
 
 	window.display();
 }
@@ -64,4 +64,5 @@ bool App::isRunning() const {
 
 App::~App() {
 	exit();
+	delete player;
 }

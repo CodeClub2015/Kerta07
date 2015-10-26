@@ -6,10 +6,12 @@
 class Player {
 private:
 	sf::Vector2f position;
-
-	int health;
+	sf::Sprite sprite;
+	sf::Texture* texture;
+	float speed;			// Pelaajan nopeus
+	int health;				// Elämäpisteet
 public:
-	Player();
+	Player(sf::Texture* texture);
 
 	void update(const sf::Time& time);
 	void draw(sf::RenderWindow& renderWindow);
