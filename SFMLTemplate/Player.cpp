@@ -11,6 +11,16 @@ Player::Player()
 	sprite.setTexture(texture);
 }
 
+
+bool Player::isAlive() {
+	return false;
+}
+void Player::takeDamage(int damage) {
+}
+int Player::getHealth() {
+	return 0;
+}
+
 void Player::update(const sf::Time& time) {
 	// Katotaan onko D pohjassa.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {

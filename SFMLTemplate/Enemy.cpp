@@ -23,5 +23,10 @@ sf::FloatRect Enemy::getBounds() {
 	return sf::FloatRect();
 }
 
+void Enemy::update(const sf::Time& time) {
+}
+void Enemy::draw(sf::RenderWindow& renderWindow) {
+}
+
 Enemy::~Enemy() {
 }

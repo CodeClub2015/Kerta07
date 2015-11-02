@@ -7,6 +7,7 @@ private:
 	sf::Vector2f position;
 	sf::Texture texture;
 	sf::Sprite sprite;
+
 	int health;
 public:
 	Enemy(std::string& textureName);
@@ -19,6 +20,9 @@ public:
 
 	bool collidesWith(sf::FloatRect& other);
 	sf::FloatRect getBounds();
+
+	void update(const sf::Time& time);
+	void draw(sf::RenderWindow& renderWindow);
 
 	~Enemy();
 };
