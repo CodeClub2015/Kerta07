@@ -1,7 +1,10 @@
 #include "App.hpp"
 
 App::App(int width, int height) : window(sf::VideoMode(width, height), "SFML"),
-								  running(false) {
+								  running(false),
+			 enemy(std::string("Content\\meteor.png")) {
+	enemy.getPosition().x = 500;
+	enemy.getPosition().y = 300;
 }
 
 void App::update(const sf::Time& elapsedTime) {
@@ -25,7 +28,11 @@ void App::update(const sf::Time& elapsedTime) {
 	}
 
 	player.update(elapsedTime);
-
+	enemy.update(elapsedTime);
+	// törmätääx?
+	if (enemy.collidesWith(player.getBounds())) {
+		exit();
+	}
 	// TODO: päivitä tässä.
 }
 
@@ -33,7 +40,7 @@ void App::draw() {
 	window.clear();
 
 	player.draw(window);
-
+	enemy.draw(window);
 	window.display();
 }
 

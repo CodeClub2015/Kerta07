@@ -7,18 +7,25 @@ Player::Player()
 	
 
 	sprite.setColor(sf::Color::White);
-	texture.loadFromFile("Content\\kuha.jpg");
+	texture.loadFromFile("Content\\alus.png");
 	sprite.setTexture(texture);
+
+	bulletTexture.loadFromFile("Content\\projectile.png");
 }
 
+sf::FloatRect Player::getBounds() {
+	return sprite.getGlobalBounds();
+}
 
 bool Player::isAlive() {
-	return false;
+	bool alive = health > 0;
+	return alive;
 }
 void Player::takeDamage(int damage) {
+	health -= damage;
 }
 int Player::getHealth() {
-	return 0;
+	return health;
 }
 
 void Player::update(const sf::Time& time) {
@@ -36,10 +43,31 @@ void Player::update(const sf::Time& time) {
 		position.y += speed;
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		projectiles.push_back(Projectile());
+		Projectile& bullet = projectiles.back();
+		bullet.sprite.setTexture(bulletTexture);
+
+		sf::FloatRect size = sprite.getGlobalBounds();
+		sf::Vector2f newpos(position.x + size.width,
+			position.y + size.height / 2.f);
+
+		bullet.position = newpos;
+	}
+
+	for (int i = 0; i < projectiles.size(); ++i) {
+		projectiles[i].position.x += 0.5f;
+		projectiles[i].sprite.setPosition(
+			projectiles[i].position);
+	}
+
 	sprite.setPosition(position);
 }
 void Player::draw(sf::RenderWindow& renderWindow) {
 	renderWindow.draw(sprite);
+	for (int i = 0; i < projectiles.size(); ++i) {
+		renderWindow.draw(projectiles[i].sprite);
+	}
 }
 
 Player::~Player() {

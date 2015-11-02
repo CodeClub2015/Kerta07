@@ -1,31 +1,40 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(std::string& textureName) {
+	texture.loadFromFile(textureName);
+	sprite.setTexture(texture);
+	health = 100;
+	//sprite.setScale(0.5f, 0.5f);
 }
 
 bool Enemy::isAlive() {
-	return false;
+	return health > 0;
 }
 void Enemy::takeDamage(int damage) {
+	health -= damage;
 }
 int Enemy::getHealth()  {
-	return 0;
+	return health;
 }
 
 sf::Vector2f& Enemy::getPosition() {
-	return sf::Vector2f();
+	return position;
 }
 
 bool Enemy::collidesWith(sf::FloatRect& other) {
-	return false;
+	return getBounds().intersects(other);
 }
 sf::FloatRect Enemy::getBounds() {
-	return sf::FloatRect();
+	return sprite.getGlobalBounds();
 }
 
 void Enemy::update(const sf::Time& time) {
+	position.x -= 0.01f;
+	sprite.setPosition(position);
+
 }
 void Enemy::draw(sf::RenderWindow& renderWindow) {
+	renderWindow.draw(sprite);
 }
 
 Enemy::~Enemy() {
