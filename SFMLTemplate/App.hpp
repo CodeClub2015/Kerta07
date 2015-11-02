@@ -7,7 +7,7 @@ class App {
 private:
 	bool running;
 	sf::RenderWindow window;
-	Player* player;
+	Player player;
 
 	void update(const sf::Time& elapsedTime);
 	void draw();

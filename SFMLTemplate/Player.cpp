@@ -1,12 +1,14 @@
 #include "Player.hpp"
 
-Player::Player(sf::Texture* texture) 
-	: texture(texture),
-   sprite(*texture),
-   speed(0.5f),
-   health(100),
-   position(0.0f, 0.0f) {
+Player::Player() 
+	: speed(0.5f),
+      health(100),
+      position(0.0f, 0.0f) {
+	
+
 	sprite.setColor(sf::Color::White);
+	texture.loadFromFile("Content\\kuha.jpg");
+	sprite.setTexture(texture);
 }
 
 void Player::update(const sf::Time& time) {
@@ -31,5 +33,5 @@ void Player::draw(sf::RenderWindow& renderWindow) {
 }
 
 Player::~Player() {
-	delete texture;
+	
 }

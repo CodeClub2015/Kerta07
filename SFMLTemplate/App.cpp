@@ -1,12 +1,7 @@
-#include "App.h"
+#include "App.hpp"
 
 App::App(int width, int height) : window(sf::VideoMode(width, height), "SFML"),
 								  running(false) {
-	// dirty hax
-	sf::Texture* texture = new sf::Texture;
-	texture->loadFromFile("Content\\kuha.jpg");
-	
-	player = new Player(texture);
 }
 
 void App::update(const sf::Time& elapsedTime) {
@@ -22,10 +17,14 @@ void App::update(const sf::Time& elapsedTime) {
 			sf::View view = sf::View(sf::FloatRect(0.0f, 0.0f, w, h));
 
 			window.setView(view);
-		}
+		} 
 	}
 
-	player->update(elapsedTime);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		exit();
+	}
+
+	player.update(elapsedTime);
 
 	// TODO: päivitä tässä.
 }
@@ -33,7 +32,7 @@ void App::update(const sf::Time& elapsedTime) {
 void App::draw() {
 	window.clear();
 
-	player->draw(window);
+	player.draw(window);
 
 	window.display();
 }
@@ -64,5 +63,4 @@ bool App::isRunning() const {
 
 App::~App() {
 	exit();
-	delete player;
 }
